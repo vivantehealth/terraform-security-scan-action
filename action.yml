@@ -4,22 +4,19 @@ inputs:
   github_token:
     description: GitHub token to use
     required: true
+  tf_working_dir:
+    description: Path to directory where terraform commands should be run
+    required: false
+    default: "./"
 runs:
   using: "composite"
   steps:
     - name: Checkout
       uses: actions/checkout@master
+    - name: Change directory
+      run: cd ${{ inputs.tf_working_dir }}
     - name: Security scan
+      #uses: triat/terraform-security-scan@v3.0.0
       uses: aquasecurity/tfsec-pr-commenter-action@main
       env:
         github_token: ${{ inputs.github_token }}
-  security-scan:
-    name: Security scan (org-staging)
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@master
-      - name: TF Security Scan
-        uses: triat/terraform-security-scan@v3.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
