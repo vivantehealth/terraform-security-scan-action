@@ -1,0 +1,1 @@
+# terraform-security-scan-action
