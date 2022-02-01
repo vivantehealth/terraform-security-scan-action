@@ -16,7 +16,7 @@ runs:
       working-directory: ${{ inputs.tf_working_dir }}
       run: terraform init -input=false -backend=false
     - name: Security scan
-      uses: triat/terraform-security-scan@v3.0.0
+      uses: triat/terraform-security-scan@v3.0.1
       env:
         github_token: ${{ inputs.github_token }}
       #uses: aquasecurity/tfsec-pr-commenter-action@main
