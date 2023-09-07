@@ -17,6 +17,8 @@ runs:
       run: terraform init -input=false -backend=false
     - name: Security scan
       uses: triat/terraform-security-scan@v3
+      with:
+        tfsec_version: "v1.28.1"
       env:
         github_token: ${{ inputs.github_token }}
       #uses: aquasecurity/tfsec-pr-commenter-action@main
