@@ -11,6 +11,8 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Set up Terraform cli
+      uses: hashicorp/setup-terraform@v3
     - name: TF init
       shell: bash
       working-directory: ${{ inputs.tf_working_dir }}
