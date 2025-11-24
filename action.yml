@@ -1,4 +1,4 @@
-name: 'Terraform Security Scan'
+name: "Terraform Security Scan"
 description: "terraform scurity scan"
 inputs:
   github_token:
@@ -17,12 +17,11 @@ runs:
       shell: bash
       working-directory: ${{ inputs.tf_working_dir }}
       run: terraform init -input=false -backend=false
-    - name: Security scan
-      uses: triat/terraform-security-scan@v3
+
+    - name: Security scan - Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@0.33.1
       with:
-        tfsec_version: "v1.28.1"
-      env:
-        github_token: ${{ inputs.github_token }}
-      #uses: aquasecurity/tfsec-pr-commenter-action@main
-      #with:
-      #  github_token: ${{ inputs.github_token }}
+        scan-type: "fs"
+        format: "sarif"
+        output: "trivy-results.sarif"
+        scanners: "vuln,secret,misconfig,license"
